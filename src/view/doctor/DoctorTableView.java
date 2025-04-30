@@ -1,9 +1,17 @@
 package view.doctor;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class DoctorTableView
 {
@@ -23,23 +31,23 @@ public class DoctorTableView
   private TableView adminPrescriptionsTable;
 
   @FXML
-  public void initialize()
+  private Button doctorAddPrescriptionButton;
+
+  @FXML
+  private void handleOpenForm(ActionEvent event)
   {
-    showTable(1);
-  }
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("AddPrescription.fxml"));
+      Parent root = loader.load();
 
-  @FXML
-  private void showCustomers() {
-    showTable(1);
-  }
+      Stage popupStage = new Stage();
+      popupStage.setTitle("Create Prescription");
+      popupStage.initModality(Modality.APPLICATION_MODAL);
+      popupStage.setScene(new Scene(root));
+      popupStage.showAndWait(); // Wait until the popup is closed
 
-  @FXML
-  private void showPrescriptions() {
-    showTable(2);
-  }
-
-  private void showTable(int index) {
-    adminCustomersTable.setVisible(index == 1);
-    adminPrescriptionsTable.setVisible(index == 2);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 }

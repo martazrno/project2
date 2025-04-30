@@ -57,7 +57,7 @@
                 </StackPane>
             </center>
             <bottom>
-                <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="122.0" text="Add Prescription" textAlignment="CENTER" BorderPane.alignment="CENTER">
+                <Button fx:id="doctorAddPrescriptionButton" mnemonicParsing="false" onAction="#handleOpenForm" prefHeight="25.0" prefWidth="122.0" text="Add Prescription" textAlignment="CENTER" BorderPane.alignment="CENTER">
                     <BorderPane.margin>
                         <Insets bottom="15.0" />
                     </BorderPane.margin>

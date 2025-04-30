@@ -26,7 +26,7 @@ public class ViewFactory {
   public void showView(ViewType viewType) {
     String fxmlPath = switch (viewType) {
       case LOGIN -> "MainView.fxml";
-      case DOCTOR -> "admin/DoctorTableView.fxml";
+      case DOCTOR -> "doctor/DoctorTableView.fxml";
       case PHARMACIST -> "pharmacist/PharmacistTableView.fxml";
       case PATIENT -> "customer/CustomerTableView.fxml";
     };
