@@ -75,7 +75,7 @@
                         </TableView>
                         <HBox alignment="CENTER" prefHeight="60.0" prefWidth="400.0">
                            <children>
-                              <Button mnemonicParsing="false" text="Add Customer">
+                              <Button fx:id="addCustomerButton" mnemonicParsing="false" onAction="#handleAddCustomer" text="Add Customer">
                                  <HBox.margin>
                                     <Insets right="30.0" />
                                  </HBox.margin>
@@ -94,7 +94,7 @@
                         </TableView>
                         <HBox alignment="CENTER" prefHeight="60.0" prefWidth="400.0">
                            <children>
-                              <Button alignment="CENTER" mnemonicParsing="false" text="Add Medicine" textAlignment="CENTER">
+                              <Button fx:id="addMedicineButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleAddMedicine" text="Add Medicine" textAlignment="CENTER">
                                  <HBox.margin>
                                     <Insets right="30.0" />
                                  </HBox.margin>
