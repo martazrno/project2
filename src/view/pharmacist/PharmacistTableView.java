@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 
 public class PharmacistTableView
 {
@@ -24,10 +25,10 @@ public class PharmacistTableView
   private TableView pharmacistPrescriptionsTable;
 
   @FXML
-  private TableView pharmacistCustomersTable;
+  private VBox pharmacistCustomersTable;
 
   @FXML
-  private TableView pharmacistInventoryTable;
+  private VBox pharmacistInventoryTable;
 
   @FXML
   public void initialize() {

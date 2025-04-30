@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -63,19 +64,45 @@
          <center>
             <StackPane maxHeight="300.0" maxWidth="400.0" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <TableView fx:id="pharmacistCustomersTable" prefHeight="200.0" prefWidth="200.0">
-                     <columns>
-                        <TableColumn prefWidth="126.0" text="ID" />
-                        <TableColumn fx:id="customerPrescriptionsTable" prefWidth="131.0" text="Name" />
-                        <TableColumn prefWidth="142.0" text="Medicine" />
-                     </columns>
-                  </TableView>
-                  <TableView fx:id="pharmacistInventoryTable" prefHeight="200.0" prefWidth="200.0" visible="false">
-                    <columns>
-                      <TableColumn prefWidth="200.0" text="Medicine" />
-                      <TableColumn prefWidth="199.0" text="Amount" />
-                    </columns>
-                  </TableView>
+                  <VBox fx:id="pharmacistCustomersTable" prefHeight="200.0" prefWidth="100.0" visible="false">
+                     <children>
+                        <TableView prefHeight="260.0">
+                           <columns>
+                              <TableColumn prefWidth="126.0" text="ID" />
+                              <TableColumn prefWidth="131.0" text="Name" />
+                              <TableColumn prefWidth="142.0" text="Medicine" />
+                           </columns>
+                        </TableView>
+                        <HBox alignment="CENTER" prefHeight="60.0" prefWidth="400.0">
+                           <children>
+                              <Button mnemonicParsing="false" text="Add Customer">
+                                 <HBox.margin>
+                                    <Insets right="30.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" text="Remove Customer" />
+                           </children></HBox>
+                     </children>
+                  </VBox>
+                  <VBox fx:id="pharmacistInventoryTable" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <TableView prefHeight="260.0" prefWidth="200.0">
+                          <columns>
+                            <TableColumn prefWidth="200.0" text="Medicine" />
+                            <TableColumn prefWidth="199.0" text="Amount" />
+                          </columns>
+                        </TableView>
+                        <HBox alignment="CENTER" prefHeight="60.0" prefWidth="400.0">
+                           <children>
+                              <Button alignment="CENTER" mnemonicParsing="false" text="Add Medicine" textAlignment="CENTER">
+                                 <HBox.margin>
+                                    <Insets right="30.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button alignment="CENTER" mnemonicParsing="false" text="Remove Medicine" />
+                           </children></HBox>
+                     </children>
+                  </VBox>
                </children>
             </StackPane>
          </center>
