@@ -12,96 +12,57 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.doctor.DoctorTableView">
-   <children>
-      <BorderPane maxHeight="400.0" maxWidth="600.0" prefHeight="400.0" prefWidth="600.0">
-         <top>
-            <GridPane BorderPane.alignment="CENTER">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Label text="DMC" GridPane.valignment="TOP">
-                     <font>
-                        <Font size="30.0" />
-                     </font>
-                     <GridPane.margin>
-                        <Insets left="10.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <TextField fx:id="adminSearchBar" maxWidth="120.0" promptText="Search..." GridPane.columnIndex="1" GridPane.halignment="RIGHT">
-                     <GridPane.margin>
-                        <Insets right="10.0" top="10.0" />
-                     </GridPane.margin>
-                  </TextField>
-               </children>
-            </GridPane>
-         </top>
-         <left>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Button fx:id="adminCustomersTabButton" alignment="CENTER" maxWidth="120.0" mnemonicParsing="false" text="Customers">
-                     <VBox.margin>
-                        <Insets bottom="5.0" left="10.0" />
-                     </VBox.margin>
-                  </Button>
-                  <Button fx:id="adminEmployeesTabButton" alignment="CENTER" maxWidth="120.0" mnemonicParsing="false" text="Employees">
-                     <VBox.margin>
-                        <Insets bottom="5.0" left="10.0" />
-                     </VBox.margin>
-                  </Button>
-                  <Button fx:id="adminPrescriptionsTabButton" alignment="CENTER" maxWidth="120.0" mnemonicParsing="false" text="Prescriptions">
-                     <VBox.margin>
-                        <Insets bottom="5.0" left="10.0" />
-                     </VBox.margin>
-                  </Button>
-                  <Button fx:id="adminInventoryTabButton" alignment="CENTER" maxWidth="120.0" mnemonicParsing="false" text="Inventory">
-                     <VBox.margin>
-                        <Insets bottom="5.0" left="10.0" />
-                     </VBox.margin>
-                  </Button>
-               </children>
-            </VBox>
-         </left>
-         <center>
-            <StackPane maxHeight="300.0" maxWidth="400.0" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-               <children>
-                  <TableView fx:id="adminCustomersTable" prefHeight="200.0" prefWidth="200.0">
-                    <columns>
-                      <TableColumn prefWidth="127.0" text="Name" />
-                      <TableColumn prefWidth="133.0" text="Contact" />
-                        <TableColumn prefWidth="139.0" text="Active Prescription" />
-                    </columns>
-                  </TableView>
-                  <TableView fx:id="adminEmployeesTable" prefHeight="200.0" prefWidth="200.0" visible="false">
-                    <columns>
-                      <TableColumn prefWidth="192.0" text="Name" />
-                      <TableColumn prefWidth="207.0" text="Contact" />
-                    </columns>
-                  </TableView>
-                  <TableView fx:id="adminPrescriptionsTable" prefHeight="200.0" prefWidth="200.0" visible="false">
-                    <columns>
-                      <TableColumn prefWidth="131.0" text="Medicine" />
-                      <TableColumn prefWidth="136.0" text="Date" />
-                        <TableColumn prefWidth="132.0" text="Customer" />
-                    </columns>
-                  </TableView>
-                  <TableView fx:id="adminInventoryTable" prefHeight="200.0" prefWidth="200.0">
-                    <columns>
-                      <TableColumn prefWidth="193.0" text="Medicine" />
-                      <TableColumn prefWidth="206.0" text="Amount" />
-                    </columns>
-                  </TableView>
-               </children>
-            </StackPane>
-         </center>
-      </BorderPane>
-   </children>
+    <children>
+        <BorderPane maxHeight="400.0" maxWidth="600.0" prefHeight="400.0" prefWidth="600.0">
+            <top>
+                <GridPane prefWidth="600.0" BorderPane.alignment="CENTER">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Label prefHeight="45.0" prefWidth="341.0" text="DMC - Doctor" GridPane.valignment="TOP">
+                            <font>
+                                <Font size="30.0" />
+                            </font>
+                            <GridPane.margin>
+                                <Insets left="10.0" />
+                            </GridPane.margin>
+                        </Label>
+                        <TextField fx:id="adminSearchBar" maxWidth="120.0" promptText="Search..." GridPane.columnIndex="1" GridPane.halignment="RIGHT">
+                            <GridPane.margin>
+                                <Insets right="10.0" top="10.0" />
+                            </GridPane.margin>
+                        </TextField>
+                    </children>
+                </GridPane>
+            </top>
+            <center>
+                <StackPane maxHeight="300.0" maxWidth="400.0" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <TableView fx:id="adminPrescriptionsTable" prefHeight="200.0" prefWidth="200.0">
+                            <columns>
+                                <TableColumn prefWidth="131.0" text="Medicine" />
+                                <TableColumn prefWidth="136.0" text="Date" />
+                                <TableColumn prefWidth="132.0" text="Customer" />
+                            </columns>
+                        </TableView>
+                    </children>
+                </StackPane>
+            </center>
+            <bottom>
+                <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="122.0" text="Add Prescription" textAlignment="CENTER" BorderPane.alignment="CENTER">
+                    <BorderPane.margin>
+                        <Insets bottom="15.0" />
+                    </BorderPane.margin>
+                </Button>
+            </bottom>
+        </BorderPane>
+    </children>
 </AnchorPane>
