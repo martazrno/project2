@@ -40,18 +40,12 @@ public class PharmacistTableView
   }
 
   @FXML
-  private void showPrescriptions() {
-    showTable(2);
-  }
-
-  @FXML
   private void showInventory() {
-    showTable(3);
+    showTable(2);
   }
 
   private void showTable(int index) {
     pharmacistCustomersTable.setVisible(index == 1);
-    pharmacistPrescriptionsTable.setVisible(index == 2);
-    pharmacistInventoryTable.setVisible(index == 3);
+    pharmacistInventoryTable.setVisible(index == 2);
   }
 }

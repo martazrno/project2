@@ -9,9 +9,6 @@ import javafx.scene.layout.GridPane;
 public class CustomerTableView
 {
   @FXML
-  private Button customerPrescriptionsTabButton;
-
-  @FXML
   private TableView customerPrescriptionsTable;
 
   @FXML

@@ -32,7 +32,7 @@ public class MainView
       switch (role) {
         case "doctor" -> viewFactory.showView(ViewFactory.ViewType.DOCTOR); // or DOCTOR_DASHBOARD
         case "pharmacist" -> viewFactory.showView(ViewFactory.ViewType.PHARMACIST); // or PHARMACIST_DASHBOARD
-        case "patient" -> viewFactory.showView(ViewFactory.ViewType.PATIENT); // or CUSTOMER_VIEW
+        case "customer" -> viewFactory.showView(ViewFactory.ViewType.PATIENT); // or CUSTOMER_VIEW
         default -> System.out.println("Invalid role entered");
       }
     }

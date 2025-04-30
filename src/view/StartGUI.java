@@ -7,7 +7,7 @@ public class StartGUI extends Application {
 
   @Override
   public void start(Stage primaryStage) {
-    primaryStage.setTitle("My JavaFX App");
+    primaryStage.setTitle("Danish Medicine Cabinet");
 
     ViewFactory viewFactory = new ViewFactory(primaryStage);
     viewFactory.showView(ViewFactory.ViewType.LOGIN);
