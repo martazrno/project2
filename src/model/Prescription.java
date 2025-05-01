@@ -1,6 +1,10 @@
 package model;
+
+import database.DatabaseConnector;
 import observer.PrescriptionObserver;
 import people.Customer;
+
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,7 +69,34 @@ public class Prescription {
         }}
 
     @Override
-    public String toString() {return "Prescription ID: " + id + "\nMedicines: " + medicines +
-            "\npeople.Customer: " + customer.getName();}
+    public String toString() {
+        return "Prescription ID: " + id + "\nMedicines: " + medicines +
+            "\npeople.Customer: " + customer.getName();
+    }
 
+    public static List<Prescription> loadAllFromDatabase() {
+        List<Prescription> prescriptions = new ArrayList<>();
+        String sql = "SELECT p.prescription_id, c.customer_id, c.name " +
+            "FROM prescriptions p JOIN customers c ON p.customer_id = c.customer_id";
+
+        try (Connection conn = DatabaseConnector.connect();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                String prescriptionId = String.valueOf(rs.getInt("prescription_id"));
+                String customerId = String.valueOf(rs.getInt("customer_id"));
+                String customerName = rs.getString("name");
+
+                Customer customer = new Customer(customerName, customerId);
+                Prescription prescription = new Prescription(prescriptionId, customer);
+                prescriptions.add(prescription);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return prescriptions;
+    }
 }
