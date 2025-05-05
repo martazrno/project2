@@ -6,6 +6,10 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import people.Customer;
+import viewmodel.AddCustomerViewModel;
+import viewmodel.AddPrescriptionViewModel;
+import viewmodel.PharmacistViewModel;
 
 public class AddCustomer
 {
@@ -21,9 +25,23 @@ public class AddCustomer
   @FXML
   private Button addCustomerCancelButton;
 
+  private AddCustomerViewModel viewModel;
+
+  public void initialize()
+  {
+    viewModel = new AddCustomerViewModel();
+  }
+
   @FXML
   public void onOkClicked(ActionEvent event)
   {
+    int id = Integer.parseInt(enterCustomerID.getText());
+    String name = enterCustomerName.getText();
+
+    Customer customer = new Customer(id, name);
+
+    viewModel.sendCustomer(Customer);
+
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     stage.close();
   }
