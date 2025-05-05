@@ -1,65 +1,33 @@
 package people;
+import database.DBconnect;
+import java.sql.*;
 
-import database.DatabaseConnector;
-import model.Prescription;
-
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Customer extends User {
 
-    // attributes
-    private final List<Prescription> prescriptions;
-
     // constructor
-    public Customer(String name, String id) {
-        super(name, id);
-        this.prescriptions = new ArrayList<>();
-    }
-
-    // getters
-    public List<Prescription> getPrescriptions() {
-        return prescriptions;
-    }
+    public Customer (String name,  String id){super(name, id);}
 
     // methods
     public void viewMyPrescriptions() {
-        if (prescriptions.isEmpty()) {
-            System.out.println("No prescriptions found.");
-            return;
-        }
-        System.out.println("Your prescriptions: ");
-        for (Prescription prescription : prescriptions) {
-            System.out.println(prescription);
-        }
-    }
+        String sql = """
+        SELECT m.name FROM prescriptions p
+        JOIN medicines m ON p.medicine_id = m.medicine_id WHERE p.customer_id = ?;
+        """;
 
-    @Override
-    public String toString() {
-        return "Customer name: " + getName() + "\nID: " + getId();
-    }
-
-    public static List<Customer> loadAllFromDatabase() {
-        List<Customer> customers = new ArrayList<>();
-        String sql = "SELECT customer_id, name FROM customers";
-
-        try (Connection conn = DatabaseConnector.connect();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql)) {
+        try (Connection connection = DBconnect.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, this.getId());
+            ResultSet rs = statement.executeQuery();
+            boolean found = false;
+            System.out.println("Your prescribed medicines: ");
 
             while (rs.next()) {
+                found = true;
                 String name = rs.getString("name");
-                String id = String.valueOf(rs.getInt("customer_id"));
-                customers.add(new Customer(name, id));
-            }
+                System.out.println("- " + name);}
+            if (!found) {System.out.println("No prescriptions found.");}}
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        catch (SQLException e) {System.out.println("Error fetching prescriptions: " + e.getMessage());}}
 
-        return customers;
-    }
 }

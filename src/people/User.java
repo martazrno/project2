@@ -17,8 +17,4 @@ public abstract class User {
     //getters
     public String getId() {return id;}
     public String getName() {return name;}
-
-    //methods
-    @Override
-    public String toString() {return "Person's name: " + name + "\nID: " + id;}
 }
