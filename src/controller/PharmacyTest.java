@@ -1,4 +1,5 @@
-package controller;
+/*package controller;
+import inventory.Inventory;
 import model.*;
 import people.Customer;
 
@@ -10,8 +11,8 @@ public class PharmacyTest {
         System.out.println("=== Testing Pharmacy ===");
 
         // Setup
-        Pharmacy pharmacy = new Pharmacy(new inventory.Inventory());
-        Medicine paracetamol = new Medicine("Paracetamol", LocalDate.of(2026, 5, 15), "M001", false, 10);
+        Pharmacy pharmacy = new Pharmacy(new Inventory());
+        Medicine paracetamol = new Medicine("Paracetamol", LocalDate.of(2026, 5, 15), 001, false, 10);
         pharmacy.getInventory().addMedicine(paracetamol);
 
         // Order test
@@ -28,7 +29,4 @@ public class PharmacyTest {
         pharmacy.addPrescription(prescription);
         prescription.addMedicine(paracetamol);
         prescription.removeMedicine(paracetamol);
-
-        //test github
-    }
-}
+    }}*/

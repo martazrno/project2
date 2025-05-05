@@ -1,4 +1,4 @@
-package controller;
+/*package controller;
 import inventory.InventoryManager;
 import manager.OrderManager;
 import manager.PrescriptionManager;
@@ -90,4 +90,4 @@ public class Pharmacy implements OrderManager, PrescriptionManager, MedicineStoc
     // order observer
     public void onOrderStatusUpdated(Order order){
         System.out.println("Order " + order.getOrderID() + " status was changed to " + order.getOrderStatus());}
-}
+}*/

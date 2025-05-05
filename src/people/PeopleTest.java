@@ -1,39 +1,28 @@
 package people;
 
 import inventory.Inventory;
-import model.Medicine;
-import model.Prescription;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
+import inventory.InventoryManager;
+import people.Customer;
 
 public class PeopleTest {
     public static void main(String[] args) {
+        Pharmacist pharmacist = new Pharmacist("Ella Pharmacist", "PH123", new Inventory() );
 
-        System.out.println("=== Testing Customer ===");
-        Customer customer = new Customer("Marta Zrno", "C001");
-        System.out.println(customer);
+        // Add a customer
+        Customer c1 = new Customer("Samuel Green", "C043");
+        pharmacist.addCustomer(c1);
 
-        System.out.println("\n=== Testing Doctor ===");
-        Doctor doctor = new Doctor("Dr. Strange", "D001");
-        Prescription prescription = doctor.createPrescription("P001", customer);
-        doctor.viewPrescriptions(customer);
+        // Try adding the same customer again (should warn)
+        pharmacist.addCustomer(c1);
 
-        System.out.println("\n=== Testing Pharmacist ===");
-        Inventory inventory = new Inventory();
-        ArrayList<Customer> customers = new ArrayList<>();
-        customers.add(customer);
-
-        Pharmacist pharmacist = new Pharmacist("John Smith", "P001", customers, inventory) {}; // anonymous subclass
+        // View customers
+        System.out.println("\n--- Customers ---");
         pharmacist.viewCustomers();
 
-        Medicine med = new Medicine(
-                "Ibuprofen", LocalDate.of(2026, 5, 15),
-                "M001", false, 100
-        );
-        pharmacist.addToInventory(med);
-        pharmacist.viewInventory();
-        pharmacist.removeFromInventory(med);
-        pharmacist.viewInventory();
+
+
+        // Final check
+        System.out.println("\n--- Final Customer List ---");
+        pharmacist.viewCustomers();
     }
 }
