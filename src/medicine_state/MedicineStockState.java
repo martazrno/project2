@@ -3,6 +3,6 @@ import inventory.Inventory;
 import model.Medicine;
 
 public interface MedicineStockState {
-    void checkAndReorder(Medicine medicine, Inventory inventory);
+    void checkAndReorder(String name, Inventory inventory);
     String getStateName();
 }

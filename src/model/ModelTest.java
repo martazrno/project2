@@ -7,7 +7,7 @@ public class ModelTest {
     public static void main(String[] args) {
 
         System.out.println("=== Testing Medicine and MedicineFactory ===");
-        Medicine med1 = MedicineFactory.createMedicine(MedicineType.NORMAL, "Ibuprofen", LocalDate.of(2026, 5, 15), "M001", 100);
+        Medicine med1 = MedicineFactory.createMedicine(MedicineType.NORMAL, "Ibuprofen", LocalDate.of(2026, 5, 15), 01, 100);
         System.out.println(med1);
 
         System.out.println("\n=== Testing Order and OrderItem ===");
@@ -23,9 +23,6 @@ public class ModelTest {
 
         System.out.println("\n=== Testing Prescription ===");
         Customer customer = new Customer("Alice", "C001");
-        Prescription prescription = new Prescription("PRES001", customer);
-        prescription.addMedicine(med1);
-        prescription.viewPrescriptions();
-        prescription.removeMedicine(med1);
+
     }
 }

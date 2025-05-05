@@ -1,31 +1,33 @@
 package people;
-import model.Prescription;
-import java.util.ArrayList;
-import java.util.List;
+import database.DBconnect;
+import java.sql.*;
+
 
 public class Customer extends User {
 
-    //attributes
-    private final List<Prescription> prescriptions;
-
     // constructor
-    public Customer (String name,  String id){
-        super(name, id);
-        this.prescriptions = new ArrayList<>();
-    }
-
-    // getters
-    public List<Prescription> getPrescriptions() {return prescriptions;}
+    public Customer (String name,  String id){super(name, id);}
 
     // methods
-    public void viewMyPrescriptions(){
-        if (prescriptions.isEmpty()){
-            System.out.println("No prescriptions found.");
-            return;}
-        System.out.println("Your prescriptions: ");
-        for (Prescription prescription: prescriptions){System.out.println(prescription);}}
+    public void viewMyPrescriptions() {
+        String sql = """
+        SELECT m.name FROM prescriptions p
+        JOIN medicines m ON p.medicine_id = m.medicine_id WHERE p.customer_id = ?;
+        """;
 
-    @Override
-    public String toString() {return "Customer name: " + getName() + "\nID: " + getId();}
+        try (Connection connection = DBconnect.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, this.getId());
+            ResultSet rs = statement.executeQuery();
+            boolean found = false;
+            System.out.println("Your prescribed medicines: ");
+
+            while (rs.next()) {
+                found = true;
+                String name = rs.getString("name");
+                System.out.println("- " + name);}
+            if (!found) {System.out.println("No prescriptions found.");}}
+
+        catch (SQLException e) {System.out.println("Error fetching prescriptions: " + e.getMessage());}}
 
 }
