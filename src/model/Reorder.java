@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class Reorder implements OrderObserver{
+public class Reorder implements OrderObserver {
 
     //attributes
     private static final int THRESHOLD = 20;
