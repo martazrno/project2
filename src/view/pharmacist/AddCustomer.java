@@ -1,4 +1,4 @@
-/*package view.pharmacist;
+package view.pharmacist;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -65,4 +65,4 @@ public class AddCustomer
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     stage.close();
   }
-}*/
+}

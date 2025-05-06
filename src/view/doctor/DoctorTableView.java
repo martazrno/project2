@@ -1,4 +1,4 @@
-/*package view.doctor;
+package view.doctor;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -54,4 +54,4 @@ public class DoctorTableView
       e.printStackTrace();
     }
   }
-}*/
+}
