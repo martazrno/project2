@@ -1,6 +1,7 @@
+/*
 package model;
 
-import database.DatabaseConnector;
+import database.DBconnect;
 import observer.OrderObserver;
 
 import java.sql.Connection;
@@ -88,7 +89,7 @@ public class Order {
         List<Order> orders = new ArrayList<>();
         String sql = "SELECT order_id, medicine_name, quantity FROM orders";
 
-        try (Connection conn = DatabaseConnector.connect();
+        try (Connection conn = DBconnect.connect();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql)) {
 
@@ -117,3 +118,4 @@ public class Order {
         return orders;
     }
 }
+*/

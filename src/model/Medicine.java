@@ -8,13 +8,13 @@ public class Medicine {
     // attributes
     private final String name;
     private final LocalDate expirationDate;
-    private final int id;
+    private final String id;
     private final boolean isPrescription;
     private int quantity;
     private MedicineStockState stockState;
 
     // constructor
-    public Medicine(String name, LocalDate expirationDate, int id, boolean isPrescription,  int quantity){
+    public Medicine(String name, LocalDate expirationDate, String id, boolean isPrescription,  int quantity){
         if (expirationDate.isBefore(LocalDate.now())) {
             throw new IllegalArgumentException("Expiration date cannot be in the past.");}
         if (name == null || name.isBlank()){throw new IllegalArgumentException("Medicine name cannot be null.");}
@@ -35,7 +35,7 @@ public class Medicine {
     // getters and setters
     public String getName() {return name;}
     public LocalDate getExpirationDate() {return expirationDate;}
-    public int getId() {return id;}
+    public String getId() {return id;}
     public int getQuantity() {return quantity;}
     public void setQuantity(int quantity) {
         if (quantity < 0) throw new IllegalArgumentException("Quantity cannot be negative.");

@@ -9,8 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.Medicine;
-import model.Prescription;
 import people.Customer;
+import viewmodel.AddPrescriptionViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,13 +18,10 @@ import java.util.List;
 public class AddPrescription
 {
   @FXML
-  private TextField presciptionIdTextField;
+  private ComboBox<String> medicineComboBox;
 
   @FXML
-  private ListView<Medicine> medicineListView;
-
-  @FXML
-  private ComboBox<Customer> customerComboBox;
+  private ComboBox<String> customerComboBox;
 
   @FXML
   private Button addPrescriptionOKButton;
@@ -32,27 +29,13 @@ public class AddPrescription
   @FXML
   private Button addPrescriptionCancelButton;
 
+  private AddPrescriptionViewModel viewModel;
+
   private Stage dialogStage;
-  private Prescription result = null;
 
   public void initialize()
   {
-    medicineListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-  }
-
-  public void setMedicineOptions(List<Medicine> meds)
-  {
-    medicineListView.setItems(FXCollections.observableArrayList(meds));
-  }
-
-  public void setCustomerOptions(List<Customer> customers)
-  {
-    customerComboBox.setItems(FXCollections.observableArrayList(customers));
-  }
-
-  public Prescription getResult()
-  {
-    return result;
+    viewModel = new AddPrescriptionViewModel();
   }
 
   @FXML
@@ -60,17 +43,19 @@ public class AddPrescription
   {
     try
     {
-      int id = Integer.parseInt(presciptionIdTextField.getText().trim());
-      List<Medicine> selectedMeds = new ArrayList<>(
-          medicineListView.getSelectionModel().getSelectedItems());
-      Customer selectedCustomer = customerComboBox.getValue();
+      String selectedMed = medicineComboBox.getValue();
+      String selectedCustomer = customerComboBox.getValue();
 
-      if (selectedMeds.isEmpty() || selectedCustomer == null)
+      if (selectedMed == null || selectedCustomer == null)
       {
         return;
       }
 
-      result = new Prescription(id, selectedMeds, selectedCustomer);
+      viewModel.setMedicineName(selectedMed);
+      viewModel.setCustomerName(selectedCustomer);
+      viewModel.sendData();
+
+
       Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
       stage.close();
     }

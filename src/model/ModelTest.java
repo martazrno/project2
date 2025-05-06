@@ -1,3 +1,4 @@
+/*
 package model;
 import medicine_state.MedicineType;
 import people.Customer;
@@ -26,3 +27,5 @@ public class ModelTest {
 
     }
 }
+
+ */

@@ -8,7 +8,7 @@ public class InventoryTest {
         InventoryManager inventory = new Inventory();
 
         Medicine ibuprofen = new Medicine("Ibuprofen", LocalDate.of(2026, 5, 15),
-                75, false, 10);
+                "75", false, 10);
 
         //inventory.removeMedicine("Ibuprofen");
         inventory.addMedicine(ibuprofen);

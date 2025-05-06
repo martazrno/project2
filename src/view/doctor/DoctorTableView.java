@@ -10,7 +10,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.Prescription;
 
 import java.io.IOException;
 
@@ -46,16 +45,10 @@ public class DoctorTableView
       popupStage.setTitle("Create Prescription");
       popupStage.initModality(Modality.APPLICATION_MODAL);
 
-      controller.setCustomerOptions(customerList); // refer to viewmodel to query data
-      controller.setMedicineOptions(medicineList);
 
       popupStage.setScene(new Scene(root));
       popupStage.showAndWait(); // Wait until the popup is closed
 
-      Prescription newPrescription = controller.getResult();
-      if (newPrescription != null) {
-        viewModel.sendPrescription(newPrescription);
-      }
 
     } catch (IOException e) {
       e.printStackTrace();

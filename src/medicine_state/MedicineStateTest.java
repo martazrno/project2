@@ -9,7 +9,7 @@ public class MedicineStateTest {
     public static void main(String[] args) {
         Inventory inventory = new Inventory();
         Medicine med = MedicineFactory.createMedicine(
-                MedicineType.NORMAL, "Aspirin", LocalDate.of(2026, 1, 1), 999, 5);
+                MedicineType.NORMAL, "Aspirin", LocalDate.of(2026, 1, 1), "999", 5);
 
         inventory.addMedicine(med);
         new LowStock().checkAndReorder("Aspirin", inventory);
