@@ -1,4 +1,4 @@
-/*package view.pharmacist;
+package view.pharmacist;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -35,12 +35,25 @@ public class AddCustomer
   @FXML
   public void onOkClicked(ActionEvent event)
   {
-    int id = Integer.parseInt(enterCustomerID.getText());
-    String name = enterCustomerName.getText();
+    try
+    {
+      String customerName = enterCustomerName.getText();
+      String customerId = enterCustomerID.getText();
 
-    Customer customer = new Customer(id, name);
+      if (customerName.isEmpty() || customerId.isEmpty())
+      {
+        return;
+      }
 
-    viewModel.sendCustomer(Customer);
+      viewModel.setCustomerName(customerName);
+      viewModel.setCustomerId(customerId);
+      viewModel.sendData();
+    }
+    catch (NumberFormatException e)
+    {
+    }
+
+    viewModel.sendData();
 
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     stage.close();
@@ -52,4 +65,4 @@ public class AddCustomer
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     stage.close();
   }
-}*/
+}
