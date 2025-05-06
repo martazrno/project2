@@ -1,7 +1,6 @@
-package medicine_state;
-import model.Inventory;
-import model.Reorder;
-import observer.OrderObserver;
+package model;
+import interfaces.MedicineStockState;
+import interfaces.OrderObserver;
 import java.util.List;
 
 public class LowStock implements MedicineStockState {

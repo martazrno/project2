@@ -1,6 +1,6 @@
 package model;
-import medicine_state.*;
-import observer.OrderObserver;
+import interfaces.MedicineStockState;
+import interfaces.OrderObserver;
 import people.Pharmacist;
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,6 @@
 package model;
 import database.DBconnect;
-import observer.OrderObserver;
+import interfaces.OrderObserver;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

@@ -1,5 +1,5 @@
 package model;
-import observer.OrderObserver;
+import interfaces.OrderObserver;
 import java.util.ArrayList;
 import java.util.List;
 

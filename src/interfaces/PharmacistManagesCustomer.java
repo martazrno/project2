@@ -1,4 +1,4 @@
-package manager;
+package interfaces;
 import people.Customer;
 
 public interface PharmacistManagesCustomer {

@@ -1,11 +1,11 @@
 package people;
 import database.DBconnect;
-import manager.InventoryManager;
+import interfaces.InventoryManager;
 import model.Medicine;
-import manager.PharmacistManagesCustomer;
-import manager.PharmacistManagesInventory;
+import interfaces.PharmacistManagesCustomer;
+import interfaces.PharmacistManagesInventory;
 import model.Order;
-import observer.OrderObserver;
+import interfaces.OrderObserver;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -83,7 +83,7 @@ public class Pharmacist extends User implements PharmacistManagesInventory, Phar
         if (name== null){throw new IllegalArgumentException("Medicine cannot be null.");}
         inventory.removeMedicine(name);}
 
-    /*public void viewInventory() {inventory.viewInventory();}*/
+    public void viewInventory() {inventory.viewInventory();}
 
     //observer stuff
     @Override

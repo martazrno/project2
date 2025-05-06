@@ -1,5 +1,6 @@
-package medicine_state;
-import model.Inventory;
+package model;
+
+import interfaces.MedicineStockState;
 
 public class FullStock implements MedicineStockState {
     @Override

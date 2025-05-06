@@ -1,4 +1,4 @@
-package medicine_state;
+package model;
 
 public enum MedicineType {
     NORMAL,

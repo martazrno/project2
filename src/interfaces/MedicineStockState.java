@@ -1,4 +1,5 @@
-package medicine_state;
+package interfaces;
+
 import model.Inventory;
 
 public interface MedicineStockState {

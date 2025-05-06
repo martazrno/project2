@@ -1,4 +1,4 @@
-package manager;
+package interfaces;
 import model.Medicine;
 
 public interface PharmacistManagesInventory {

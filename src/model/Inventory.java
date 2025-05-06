@@ -1,6 +1,6 @@
 package model;
 import database.DBconnect;
-import manager.InventoryManager;
+import interfaces.InventoryManager;
 
 import java.sql.*;
 import java.util.ArrayList;
