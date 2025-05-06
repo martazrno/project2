@@ -1,5 +1,5 @@
 package medicine_state;
-import inventory.Inventory;
+import model.Inventory;
 import model.Reorder;
 import observer.OrderObserver;
 import java.util.List;

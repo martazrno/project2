@@ -6,7 +6,7 @@ import java.sql.*;
 public class Customer extends User {
 
     // constructor
-    public Customer (String name,  String id){super(name, id);}
+    public Customer (String name){super(name);}
 
     // methods
     public void viewMyPrescriptions() {

@@ -1,7 +1,7 @@
-package inventory;
+package model;
 import database.DBconnect;
 import manager.InventoryManager;
-import model.Medicine;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ public class Inventory implements InventoryManager {
 
     //getters
     @Override
-    public int getDesiredStock() {return 0;}
+    public int getDesiredStock() {return 100;}
 
     // methods
     public void addMedicine(Medicine medicine) {
@@ -73,7 +73,7 @@ public class Inventory implements InventoryManager {
                 int quantity = rs.getInt("quantity");
                 boolean isPrescription = rs.getBoolean("is_prescription");
 
-                Medicine medicine = new Medicine(name, id, isPrescription, quantity);
+                Medicine medicine = new Medicine(name, isPrescription, quantity);
                 medicines.add(medicine);}}
 
         catch (SQLException e) {System.out.println("Error: " + e.getMessage());}

@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public class Doctor extends User {
 
-    public Doctor(String name, String id){super(name, id);}
+    public Doctor(String name){super(name);}
 
     public void createPrescription(String customerName, String medicineName) {
         if (medicineName == null || medicineName.isBlank()) {
@@ -26,7 +26,6 @@ public class Doctor extends User {
         try (Connection connection = DBconnect.getConnection()) {
             String customerId;
             String medicineId;
-
             try (PreparedStatement customerStmt = connection.prepareStatement(getCustomerIdSql)) {
                 customerStmt.setString(1, customerName);
                 ResultSet rs = customerStmt.executeQuery();
@@ -34,7 +33,6 @@ public class Doctor extends User {
                 else {
                     System.out.println("Customer not found.");
                     return;}}
-
             try (PreparedStatement medicineStmt = connection.prepareStatement(getMedicineIdSql)) {
                 medicineStmt.setString(1, medicineName);
                 ResultSet rs = medicineStmt.executeQuery();
@@ -42,7 +40,6 @@ public class Doctor extends User {
                 else {
                     System.out.println("Medicine not found.");
                     return;}}
-
             try (PreparedStatement checkStmt = connection.prepareStatement(checkPrescribableSql)) {
                 checkStmt.setString(1, medicineId);
                 ResultSet rs = checkStmt.executeQuery();
@@ -51,20 +48,18 @@ public class Doctor extends User {
                     if (!isPrescribable) {
                         System.out.println( medicineName + " does not require a prescription.");
                         return;}}
-                else {
-                    System.out.println("Medicine not found.");
+                else {System.out.println("Medicine not found.");
                     return;}}
 
             try (PreparedStatement insertStmt = connection.prepareStatement(insertPrescriptionSql)) {
                 insertStmt.setString(1, prescriptionID);
                 insertStmt.setString(2, customerId);
                 insertStmt.setString(3, medicineId);
-
                 int rows = insertStmt.executeUpdate();
                 if (rows > 0) {System.out.println("Prescription " + prescriptionID + " created for " + customerName);}
                 else {System.out.println("Prescription not created.");}}}
-        catch (SQLException e) {System.out.println("Error creating prescription: " + e.getMessage());}}
 
+        catch (SQLException e) {System.out.println("Error: " + e.getMessage());}}
 
     public void viewPrescriptions() {
         String sql = """
@@ -85,7 +80,7 @@ public class Doctor extends User {
                 String medicine = rs.getString("medicine_name");
 
                 System.out.println(id + " - " + customer + " - " + medicine);}}
-        catch (SQLException e) {System.out.println("Error fetching prescriptions: " + e.getMessage());}}
+        catch (SQLException e) {System.out.println("Error: " + e.getMessage());}}
 
     @Override
     public String toString() {return super.toString();}

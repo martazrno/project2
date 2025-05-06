@@ -1,18 +1,20 @@
 package people;
 
+import java.util.UUID;
+
 public abstract class User {
 
     //attributes
-    private final String name;
-    private final String id;
+    protected final String name;
+    protected final String id;
 
     //constructor
-    public User (String name, String id){
+    public User (String name){
         if (name == null){throw new IllegalArgumentException("Name cannot be null.");}
-        if (id==null){throw new IllegalArgumentException("ID cannot be null.");}
         this.name= name;
-        this.id= id;
-    }
+        this.id= generateId();}
+
+    private String generateId() {return "U" + UUID.randomUUID().toString().substring(0, 4).toUpperCase();}
 
     //getters
     public String getId() {return id;}

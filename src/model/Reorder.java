@@ -67,7 +67,7 @@ public class Reorder implements OrderObserver {
             if (order.getOrderID().equals(orderId) && order.getOrderStatus() == OrderStatus.PENDING) {
                 order.setOrderStatus(OrderStatus.CONFIRMED);
                 order.setOrderStatus(OrderStatus.COMPLETED);
-                setStockTo(order.getMedicineName(), 100);
+                setStockTo(order.getMedicineName());
                 return;}}
         System.out.println("Order not found.");}
 
@@ -78,11 +78,11 @@ public class Reorder implements OrderObserver {
                 return;}}
         System.out.println("Order not found.");}
 
-    private void setStockTo(String name, int newQuantity) {
+    private void setStockTo(String name) {
         String sql = "UPDATE medicines SET quantity = ? WHERE name = ?";
         try (Connection conn = DBconnect.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, newQuantity);
+            stmt.setInt(1, 100);
             stmt.setString(2, name);
             stmt.executeUpdate();}
         catch (SQLException e) {System.out.println("Error: " + e.getMessage());}}

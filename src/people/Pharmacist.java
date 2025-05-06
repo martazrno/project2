@@ -17,8 +17,8 @@ public class Pharmacist extends User implements PharmacistManagesInventory, Phar
     protected InventoryManager inventory;
 
     // constructor
-    public Pharmacist(String name, String id, InventoryManager inventory){
-        super(name, id);
+    public Pharmacist(String name, InventoryManager inventory){
+        super(name);
         if (inventory == null) {throw new IllegalArgumentException("Inventory cannot be null.");}
         this.inventory = inventory;}
 
@@ -34,7 +34,7 @@ public class Pharmacist extends User implements PharmacistManagesInventory, Phar
                 checkStmt.setString(1, customer.getName());
                 ResultSet rs = checkStmt.executeQuery();
                 if (rs.next()) {
-                    System.out.println("Customer already exists: " + customer.getName());
+                    System.out.println("Customer "+ customer.getName()+ " already exists.");
                     return;}}
 
             try (PreparedStatement insertStmt = connection.prepareStatement(insertSql)) {
@@ -43,7 +43,7 @@ public class Pharmacist extends User implements PharmacistManagesInventory, Phar
                 int rows = insertStmt.executeUpdate();
                 if (rows > 0) {
                     System.out.println("Customer " + customer.getName() + " added.");}}}
-        catch (SQLException e) {System.out.println("Error adding customer: " + e.getMessage());}}
+        catch (SQLException e) {System.out.println("Error: " + e.getMessage());}}
 
     public void removeCustomer(String name) {
         if (name == null || name.isBlank()) {throw new IllegalArgumentException("Customer name cannot be null or blank.");}
@@ -58,7 +58,7 @@ public class Pharmacist extends User implements PharmacistManagesInventory, Phar
             if (rows > 0) {System.out.println("Customer " + name + " removed.");}
             else {System.out.println("Customer " + name + " not found.");}}
 
-        catch (SQLException e) {System.out.println("Error removing customer: " + e.getMessage());}}
+        catch (SQLException e) {System.out.println("Error: " + e.getMessage());}}
 
     public void viewCustomers() {
         String sql = "SELECT customer_id, name FROM customers";
@@ -72,24 +72,21 @@ public class Pharmacist extends User implements PharmacistManagesInventory, Phar
                 String id = rs.getString("customer_id");
                 String name = rs.getString("name");
                 System.out.println("- " + name + " (ID: " + id + ")");}}
-        catch (SQLException e) {System.out.println("Error viewing customers: " + e.getMessage());}}
+        catch (SQLException e) {System.out.println("Error: " + e.getMessage());}}
 
     // inventory management
     public void addToInventory(Medicine medicine){
         if (medicine== null){throw new IllegalArgumentException("Medicine cannot be null.");}
-        inventory.addMedicine(medicine);
-        System.out.println("Medicine " +medicine.getName() + " added to inventory.");}
+        inventory.addMedicine(medicine);}
 
     public void removeFromInventory(String name){
         if (name== null){throw new IllegalArgumentException("Medicine cannot be null.");}
-        inventory.removeMedicine(name);
-        System.out.println("Medicine " + name + " removed from inventory.");}
+        inventory.removeMedicine(name);}
 
-    public void viewInventory() {inventory.viewInventory();}
+    /*public void viewInventory() {inventory.viewInventory();}*/
 
     //observer stuff
     @Override
-    public void onOrderStatusUpdated(Order order) {
-        System.out.println("🔔 Pharmacist notified: Order " + order.getOrderID() + " is now " + order.getOrderStatus());
-    }
+    public void onOrderStatusUpdated(Order order) {System.out.println("Order " + order.getOrderID() +
+            " is now " + order.getOrderStatus());}
 }
