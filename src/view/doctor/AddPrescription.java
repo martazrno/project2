@@ -1,4 +1,4 @@
-package view.doctor;
+/*package view.doctor;
 
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -85,4 +85,4 @@ public class AddPrescription
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     stage.close();
   }
-}
+}*/
