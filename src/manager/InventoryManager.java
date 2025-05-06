@@ -1,10 +1,12 @@
-package inventory;
+package manager;
 import model.Medicine;
+import java.util.List;
 
 public interface InventoryManager {
 
     void addMedicine(Medicine medicine);
     void removeMedicine (String name);
     void viewInventory();
-    void reorder(String name, int quantity);
+    List<Medicine> getAllMedicines();
+    int getDesiredStock();
 }
