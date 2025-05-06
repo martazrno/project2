@@ -1,7 +1,8 @@
 package viewmodel;
 
-import model.Inventory;
+import inventory.Inventory;
 import inventory.InventoryManager;
+import model.Medicine;
 import people.Customer;
 import people.Pharmacist;
 
