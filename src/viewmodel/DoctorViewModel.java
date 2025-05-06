@@ -1,8 +1,7 @@
-package viewmodel;
+/*package viewmodel;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.Prescription;
 
 import java.util.List;
 
@@ -22,4 +21,4 @@ public class DoctorViewModel
       });
     }).start();
   }
-}
+}*/

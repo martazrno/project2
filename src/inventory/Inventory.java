@@ -1,36 +1,35 @@
 package inventory;
 import database.DBconnect;
+import manager.InventoryManager;
 import model.Medicine;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Inventory implements InventoryManager {
-
-    // attributes
-    private final int THRESHOLD = 20;
-    private final int DESIRED_STOCK = 100;
 
     // constructor
     public Inventory(){}
 
     //getters
-    public int getDesiredStock() {return DESIRED_STOCK;}
+    @Override
+    public int getDesiredStock() {return 0;}
 
     // methods
     public void addMedicine(Medicine medicine) {
-        String sql = "INSERT INTO medicines (name, expiration_date, quantity) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO medicines (medicine_id, name, quantity, is_prescription) VALUES (?, ?, ?, ?)";
 
         try (Connection connection = DBconnect.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
-
-            statement.setString(1, medicine.getName());
-            statement.setDate(2, Date.valueOf(medicine.getExpirationDate()));
+            statement.setString(1, medicine.getId());
+            statement.setString(2, medicine.getName());
             statement.setInt(3, medicine.getQuantity());
-
+            statement.setBoolean(4, medicine.isPrescription());
             int rows = statement.executeUpdate();
             if (rows > 0) {System.out.println("Medicine " + medicine.getName() + " added to database.");}
-            else {System.out.println("⚠Medicine not added.");}}
+            else {System.out.println("Medicine not found.");}}
 
-        catch (SQLException e) {System.out.println("Error adding medicine: " + e.getMessage());}}
+        catch (SQLException e) {System.out.println("Error: " + e.getMessage());}}
 
     @Override
     public void removeMedicine(String name) {
@@ -40,54 +39,44 @@ public class Inventory implements InventoryManager {
             stmt.setString(1, name);
             int rows = stmt.executeUpdate();
             if (rows > 0) {System.out.println("Removed medicine: " + name);}
-            else {System.out.println("⚠️ No medicine found with name: " + name);}}
+            else {System.out.println("Medicine not found.");}}
+
         catch (SQLException e) {System.out.println("Error: " + e.getMessage());}}
 
     public void viewInventory() {
         String sql = "SELECT * FROM medicines";
         try (Connection connection = DBconnect.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql);
-
              ResultSet resultSet = statement.executeQuery()) {
             boolean empty = true;
             System.out.println("Inventory:");
-
             while (resultSet.next()) {
                 empty = false;
-                int id = resultSet.getInt("medicine_id");
+                String id = resultSet.getString("medicine_id");
                 String name = resultSet.getString("name");
-                Date expiration = resultSet.getDate("expiration_date");
                 int quantity = resultSet.getInt("quantity");
-                System.out.println("ID: " + id + ", Name: " + name + ", Expiry: " + expiration + ", Quantity: " + quantity);}
+                System.out.println("ID: " + id + ", Name: " + name + ", Quantity: " + quantity);}
             if (empty) System.out.println("Inventory is empty.");}
 
-        catch (SQLException e) {System.out.println("Error retrieving inventory: " + e.getMessage());}}
+        catch (SQLException e) {System.out.println("Error: " + e.getMessage());}}
 
-    public void reorder(String name, int quantity) {
-        String checkSql = "SELECT quantity FROM medicines WHERE name = ?";
-        String updateSql = "UPDATE medicines SET quantity = ? WHERE name = ?";
+    @Override
+    public List<Medicine> getAllMedicines() {
+        List<Medicine> medicines = new ArrayList<>();
+        String sql = "SELECT medicine_id, name, quantity, is_prescription FROM medicines";
+        try (Connection conn = DBconnect.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                String id = rs.getString("medicine_id");
+                String name = rs.getString("name");
+                int quantity = rs.getInt("quantity");
+                boolean isPrescription = rs.getBoolean("is_prescription");
 
-        try (Connection connection = DBconnect.getConnection();
-             PreparedStatement checkStmt = connection.prepareStatement(checkSql);
+                Medicine medicine = new Medicine(name, id, isPrescription, quantity);
+                medicines.add(medicine);}}
 
-             PreparedStatement updateStmt = connection.prepareStatement(updateSql)) {
-            checkStmt.setString(1, name);
-            ResultSet resultSet = checkStmt.executeQuery();
-
-            if (resultSet.next()) {
-                int currentQty = resultSet.getInt("quantity");
-
-                if (currentQty < THRESHOLD) {
-                    int newQty = currentQty + quantity;
-                    updateStmt.setInt(1, newQty);
-                    updateStmt.setString(2, name);
-                    updateStmt.executeUpdate();
-
-                    System.out.println("Reordered " + quantity + " units of " + name+
-                            ". New quantity: " + newQty);}
-                else {System.out.println(name+ " is already above threshold.");}}
-            else {System.out.println("Medicine " + name+ " not found.");}}
-        catch (SQLException e) {System.out.println("Error reordering medicine: " + e.getMessage());}}
-
+        catch (SQLException e) {System.out.println("Error: " + e.getMessage());}
+        return medicines;}
 
 }

@@ -1,17 +1,17 @@
 package people;
 import database.DBconnect;
-import inventory.Inventory;
-import inventory.InventoryManager;
+import manager.InventoryManager;
 import model.Medicine;
 import manager.PharmacistManagesCustomer;
 import manager.PharmacistManagesInventory;
+import model.Order;
+import observer.OrderObserver;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
-public class Pharmacist extends User implements PharmacistManagesInventory, PharmacistManagesCustomer {
+public class Pharmacist extends User implements PharmacistManagesInventory, PharmacistManagesCustomer, OrderObserver {
 
     // attributes
     protected InventoryManager inventory;
@@ -19,10 +19,8 @@ public class Pharmacist extends User implements PharmacistManagesInventory, Phar
     // constructor
     public Pharmacist(String name, String id, InventoryManager inventory){
         super(name, id);
-        if (inventory == null) {
-            throw new IllegalArgumentException("Inventory cannot be null.");}
-        this.inventory = inventory;
-    }
+        if (inventory == null) {throw new IllegalArgumentException("Inventory cannot be null.");}
+        this.inventory = inventory;}
 
     // customer management
     public void addCustomer(Customer customer) {
@@ -49,6 +47,7 @@ public class Pharmacist extends User implements PharmacistManagesInventory, Phar
 
     public void removeCustomer(String name) {
         if (name == null || name.isBlank()) {throw new IllegalArgumentException("Customer name cannot be null or blank.");}
+
         String deleteSql = "DELETE FROM customers WHERE name = ?";
 
         try (Connection connection = DBconnect.getConnection();
@@ -78,42 +77,19 @@ public class Pharmacist extends User implements PharmacistManagesInventory, Phar
     // inventory management
     public void addToInventory(Medicine medicine){
         if (medicine== null){throw new IllegalArgumentException("Medicine cannot be null.");}
-        String checkSql = "SELECT 1 FROM medicines WHERE name = ?";
-        String insertSql = "INSERT INTO medicines (name) VALUES (?)";
-
-        try (Connection connection = DBconnect.getConnection()) {
-            try (PreparedStatement checkStmt = connection.prepareStatement(checkSql)) {
-                checkStmt.setString(1, medicine.getName());
-                ResultSet rs = checkStmt.executeQuery();
-                if (rs.next()) {
-                    System.out.println("Medicine already exists: " + medicine.getName());
-                    return;}}
-
-            try (PreparedStatement insertStmt = connection.prepareStatement(insertSql)) {
-                insertStmt.setString(1, medicine.getName());
-                insertStmt.setString(2, medicine.getName());
-                int rows = insertStmt.executeUpdate();
-                if (rows > 0) {
-                    System.out.println("Medicine " + medicine.getName() + " added.");}}}
-        catch (SQLException e) {System.out.println("Error adding medicine: " + e.getMessage());}}
+        inventory.addMedicine(medicine);
+        System.out.println("Medicine " +medicine.getName() + " added to inventory.");}
 
     public void removeFromInventory(String name){
         if (name== null){throw new IllegalArgumentException("Medicine cannot be null.");}
-        String deleteSql = "DELETE FROM medicines WHERE name = ?";
+        inventory.removeMedicine(name);
+        System.out.println("Medicine " + name + " removed from inventory.");}
 
-        try (Connection connection = DBconnect.getConnection();
-             PreparedStatement stmt = connection.prepareStatement(deleteSql)) {
+    public void viewInventory() {inventory.viewInventory();}
 
-            stmt.setString(1, name);
-            int rows = stmt.executeUpdate();
-            if (rows > 0) {System.out.println("Medicine " + name + " removed.");}
-            else {System.out.println("Medicine " + name + " not found.");}}
-
-        catch (SQLException e) {System.out.println("Error removing customer: " + e.getMessage());}}
-
-    public void viewInventory() {
-        Inventory inventory = new Inventory(); // or inject if already exists
-        inventory.viewInventory();
+    //observer stuff
+    @Override
+    public void onOrderStatusUpdated(Order order) {
+        System.out.println("🔔 Pharmacist notified: Order " + order.getOrderID() + " is now " + order.getOrderStatus());
     }
-
 }
