@@ -32,7 +32,7 @@ public class AddPrescriptionViewModel
 
   public void sendData()
   {
-    doctor = new Doctor("doctor", "1");
+    doctor = new Doctor("doctor");
 
     doctor.createPrescription(customerName, medicineName);
   }

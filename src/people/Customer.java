@@ -28,6 +28,9 @@ public class Customer extends User {
                 System.out.println("- " + name);}
             if (!found) {System.out.println("No prescriptions found.");}}
 
-        catch (SQLException e) {System.out.println("Error fetching prescriptions: " + e.getMessage());}}
-
+        catch (SQLException e)
+        {
+            System.out.println("Error fetching prescriptions: " + e.getMessage());
+        }
+    }
 }

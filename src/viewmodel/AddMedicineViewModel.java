@@ -1,7 +1,7 @@
 package viewmodel;
 
-import inventory.Inventory;
-import inventory.InventoryManager;
+import model.Inventory;
+import interfaces.InventoryManager;
 import model.Medicine;
 import people.Pharmacist;
 
@@ -45,9 +45,9 @@ public class AddMedicineViewModel
   public void sendData()
   {
     InventoryManager inventory = new Inventory();
-    pharmacist = new Pharmacist("pharmacist", "2", inventory);
+    pharmacist = new Pharmacist("pharmacist", inventory);
 
-    pharmacist.addToInventory(new Medicine(medicineName, expirationDate, medicineId, isPrescription, medicineQuantity));
+    pharmacist.addToInventory(new Medicine(medicineName, medicineId, isPrescription, medicineQuantity));
   }
 
 
