@@ -2,11 +2,14 @@ package model;
 import interfaces.MedicineStockState;
 import interfaces.OrderObserver;
 import people.Pharmacist;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class Medicine {
+public class Medicine implements Serializable
+{
 
     // attributes
     private final String name;

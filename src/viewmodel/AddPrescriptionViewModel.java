@@ -1,39 +1,51 @@
 package viewmodel;
 
+import goodclient.RemoteDoctorClient;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import people.Customer;
 import people.Doctor;
 
 public class AddPrescriptionViewModel
 {
-  private String customerName;
-  private String medicineName;
+  private final StringProperty customerName = new SimpleStringProperty();
+  private final StringProperty medicineName = new SimpleStringProperty();
 
-  private Doctor doctor;
+  private final ObservableList<String> customerList = FXCollections.observableArrayList();
+  private final ObservableList<String> medicineList = FXCollections.observableArrayList();
 
-  public void setCustomerName(String customerName)
+  private final RemoteDoctorClient remoteClient;
+
+  public AddPrescriptionViewModel()
   {
-    this.customerName = customerName;
+    remoteClient = new RemoteDoctorClient();
+
+    customerList.setAll("Alice", "Bob", "Charlie");
+    medicineList.setAll("Paracetamol", "Ibuprofen", "Amoxicillin");
   }
 
-  public void setMedicineName(String medicineName)
+  public ObservableList<String> getCustomerList()
   {
-    this.medicineName = medicineName;
+    return customerList;
   }
 
-  public String getCustomerName()
+  public ObservableList<String> getMedicineList()
   {
+    return medicineList;
+  }
+
+  public StringProperty customerNameProperty() {
     return customerName;
   }
 
-  public String getMedicineName()
-  {
+  public StringProperty medicineNameProperty() {
     return medicineName;
   }
 
   public void sendData()
   {
-    doctor = new Doctor("doctor");
-
-    doctor.createPrescription(customerName, medicineName);
+    remoteClient.createPrescription(customerName.get(), medicineName.get());
   }
 }

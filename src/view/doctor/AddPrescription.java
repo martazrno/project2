@@ -1,5 +1,6 @@
 package view.doctor;
 
+import goodclient.RemoteDoctorClient;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,43 +32,30 @@ public class AddPrescription
 
   private AddPrescriptionViewModel viewModel;
 
-  private Stage dialogStage;
-
   public void initialize()
   {
     viewModel = new AddPrescriptionViewModel();
+
+    medicineComboBox.setItems(viewModel.getMedicineList());
+    customerComboBox.setItems(viewModel.getCustomerList());
+
+    viewModel.medicineNameProperty().bind(medicineComboBox.valueProperty());
+    viewModel.customerNameProperty().bind(customerComboBox.valueProperty());
   }
 
   @FXML
   private void onOkClicked(ActionEvent event)
   {
-    try
-    {
-      String selectedMed = medicineComboBox.getValue();
-      String selectedCustomer = customerComboBox.getValue();
+    if (viewModel.medicineNameProperty().get() == null || viewModel.customerNameProperty().get() == null)
+      return;
 
-      if (selectedMed == null || selectedCustomer == null)
-      {
-        return;
-      }
-
-      viewModel.setMedicineName(selectedMed);
-      viewModel.setCustomerName(selectedCustomer);
-      viewModel.sendData();
-
-
-      Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-      stage.close();
-    }
-    catch (NumberFormatException e)
-    {
-    }
+    viewModel.sendData();
+    ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
   }
 
   @FXML
   private void onCancelClicked(ActionEvent event)
   {
-    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    stage.close();
+    ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
   }
 }

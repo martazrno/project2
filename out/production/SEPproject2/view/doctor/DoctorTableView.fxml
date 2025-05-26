@@ -5,7 +5,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -35,11 +34,6 @@
                                 <Insets left="10.0" />
                             </GridPane.margin>
                         </Label>
-                        <TextField fx:id="adminSearchBar" maxWidth="120.0" promptText="Search..." GridPane.columnIndex="1" GridPane.halignment="RIGHT">
-                            <GridPane.margin>
-                                <Insets right="10.0" top="10.0" />
-                            </GridPane.margin>
-                        </TextField>
                     </children>
                 </GridPane>
             </top>
@@ -48,8 +42,9 @@
                     <children>
                         <TableView fx:id="adminPrescriptionsTable" prefHeight="200.0" prefWidth="200.0">
                             <columns>
-                                <TableColumn prefWidth="194.0" text="Medicine" />
-                                <TableColumn prefWidth="205.0" text="Customer" />
+                                <TableColumn fx:id="idColumn" prefWidth="77.0" text="ID" />
+                                <TableColumn fx:id="medicineColumn" prefWidth="154.0" text="Medicine" />
+                        <TableColumn fx:id="customerColumn" prefWidth="168.0" text="Customer" />
                             </columns>
                         </TableView>
                     </children>

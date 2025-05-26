@@ -1,17 +1,19 @@
 package view.pharmacist;
 
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.Medicine;
+import model.Prescription;
+import viewmodel.PharmacistViewModel;
 
 import java.io.IOException;
 
@@ -31,13 +33,47 @@ public class PharmacistTableView
   private Button addMedicineButton;
 
   @FXML
-  private VBox pharmacistCustomersTable;
+  private TableView<Prescription> pharmacistCustomersTable;
 
   @FXML
-  private VBox pharmacistInventoryTable;
+  private TableColumn<Prescription, String> idColumn;
 
   @FXML
-  public void initialize() {
+  private TableColumn<Prescription, String> customerColumn;
+
+  @FXML
+  private TableColumn<Prescription, String> medicineColumn;
+
+  @FXML
+  private TableView<Medicine> pharmacistInventoryTable;
+
+  @FXML
+  private TableColumn<Medicine, String> medicineNameColumn;
+
+  @FXML
+  private TableColumn<Medicine, Number> medicineAmountColumn;
+
+  private PharmacistViewModel viewModel;
+
+  @FXML
+  public void initialize()
+  {
+    viewModel = new PharmacistViewModel();
+
+    pharmacistCustomersTable.setItems(viewModel.getPrescriptions());
+
+    idColumn.setCellValueFactory(cellData -> cellData.getValue().getId());
+    customerColumn.setCellValueFactory(cellData -> cellData.getValue().getCustomerName());
+    medicineColumn.setCellValueFactory(cellData -> cellData.getValue().getMedicineName());
+
+    viewModel.loadPrescriptions();
+
+    pharmacistInventoryTable.setItems(viewModel.getMedicine());
+    medicineNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
+    medicineAmountColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getQuantity()));
+
+    viewModel.loadMedicine();
+
     showTable(1);
   }
 

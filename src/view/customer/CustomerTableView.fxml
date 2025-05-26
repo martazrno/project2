@@ -41,8 +41,9 @@
                <children>
                   <TableView fx:id="customerPrescriptionsTable" prefHeight="200.0" prefWidth="200.0">
                      <columns>
-                        <TableColumn prefWidth="200.0" text="Prescription ID" />
-                        <TableColumn prefWidth="199.0" text="Medicine" />
+                        <TableColumn fx:id="idColumn" prefWidth="98.0" text="Prescription ID" />
+                        <TableColumn fx:id="medicineColumn" prefWidth="138.0" text="Medicine" />
+                        <TableColumn fx:id="customerColumn" prefWidth="163.0" text="Customer Name" />
                      </columns>
                   </TableView>
                </children>
