@@ -1,9 +1,12 @@
 package people;
 import database.DBconnect;
+
+import java.io.Serializable;
 import java.sql.*;
 
 
-public class Customer extends User {
+public class Customer extends User implements Serializable
+{
 
     // constructor
     public Customer (String name){super(name);}

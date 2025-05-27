@@ -37,6 +37,10 @@ public class AddMedicine
   public void initialize()
   {
     viewModel = new AddMedicineViewModel();
+
+    viewModel.medicineNameProperty().bind(enterMedicineName.textProperty());
+    viewModel.medicineQuantityProperty().bindBidirectional(enterMedicineAmount.textProperty());
+    viewModel.isPrescriptionProperty().bind(isPrescriptionCheckBox.selectedProperty());
   }
 
   @FXML
@@ -44,24 +48,13 @@ public class AddMedicine
   {
     try
     {
-     String medicineName = enterMedicineName.getText();
-     int medicineQuantity = Integer.parseInt(enterMedicineAmount.getText().trim());
-     String medicineId = medicineIdTextField.getText();
-     boolean isPrescription = isPrescriptionCheckBox.isSelected();
-
-     viewModel.setMedicineName(medicineName);
-     viewModel.setMedicineId(medicineId);
-     viewModel.setPrescription(isPrescription);
-     viewModel.setMedicineQuantity(medicineQuantity);
-
-     viewModel.sendData();
-    }
-    catch (Exception e)
+      viewModel.sendData();
+      Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+      stage.close();
+    } catch (NumberFormatException e)
     {
+      e.printStackTrace();
     }
-
-    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    stage.close();
   }
 
   @FXML
@@ -70,6 +63,4 @@ public class AddMedicine
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     stage.close();
   }
-
-
 }

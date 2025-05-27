@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Pharmacist extends User implements PharmacistManagesInventory, PharmacistManagesCustomer, OrderObserver {
 
@@ -60,19 +62,24 @@ public class Pharmacist extends User implements PharmacistManagesInventory, Phar
 
         catch (SQLException e) {System.out.println("Error: " + e.getMessage());}}
 
-    public void viewCustomers() {
+    public List<Customer> getAllCustomers() {
         String sql = "SELECT customer_id, name FROM customers";
+        List<Customer> customers = new ArrayList<>();
 
         try (Connection connection = DBconnect.getConnection();
-             PreparedStatement stmt = connection.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery()) {
 
-            System.out.println("📋 Customers:");
             while (rs.next()) {
                 String id = rs.getString("customer_id");
                 String name = rs.getString("name");
-                System.out.println("- " + name + " (ID: " + id + ")");}}
-        catch (SQLException e) {System.out.println("Error: " + e.getMessage());}}
+                customers.add(new Customer(name));
+            }
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        return customers;
+    }
 
     // inventory management
     public void addToInventory(Medicine medicine){
@@ -89,4 +96,9 @@ public class Pharmacist extends User implements PharmacistManagesInventory, Phar
     @Override
     public void onOrderStatusUpdated(Order order) {System.out.println("Order " + order.getOrderID() +
             " is now " + order.getOrderStatus());}
+
+    public InventoryManager getInventory()
+    {
+        return inventory;
+    }
 }

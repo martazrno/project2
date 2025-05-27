@@ -1,5 +1,8 @@
 package viewmodel;
 
+import goodclient.RemotePharmacistClient;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import model.Inventory;
 import interfaces.InventoryManager;
 import model.Medicine;
@@ -8,37 +11,31 @@ import people.Pharmacist;
 
 public class AddCustomerViewModel
 {
-  private String customerName;
-  private String customerId;
+  private final StringProperty customerName = new SimpleStringProperty();
+  private final RemotePharmacistClient remoteClient;
 
-  private Pharmacist pharmacist;
-
-  public void setCustomerName(String customerName)
+  public AddCustomerViewModel()
   {
-    this.customerName = customerName;
+    remoteClient = new RemotePharmacistClient();
   }
 
-  public void setCustomerId(String customerId)
-  {
-    this.customerId = customerId;
-  }
-
-  public String getCustomerName()
+  public StringProperty customerNameProperty()
   {
     return customerName;
   }
 
-  public String getCustomerId()
+  public String getCustomerName()
   {
-    return customerId;
+    return customerName.get();
   }
 
   public void sendData()
   {
-    InventoryManager inventory = new Inventory();
-    pharmacist = new Pharmacist("pharmacist", inventory);
+    String customer = customerName.get();
 
-    pharmacist.addCustomer(new Customer(customerName));
-
+    if (customer != null)
+    {
+      remoteClient.addCustomer(customer);
+    }
   }
 }

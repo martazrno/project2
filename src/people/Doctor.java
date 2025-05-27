@@ -1,9 +1,13 @@
 package people;
 import database.DBconnect;
+import model.Prescription;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class Doctor extends User {
@@ -61,7 +65,9 @@ public class Doctor extends User {
 
         catch (SQLException e) {System.out.println("Error: " + e.getMessage());}}
 
-    public void viewPrescriptions() {
+    public List<Prescription> getAllPrescriptionsFromDB() {
+        List<Prescription> prescriptions = new ArrayList<>();
+
         String sql = """
         SELECT p.prescription_id, c.name AS customer_name, m.name AS medicine_name
         FROM prescriptions p
@@ -70,17 +76,23 @@ public class Doctor extends User {
     """;
 
         try (Connection connection = DBconnect.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql);
-             ResultSet rs = statement.executeQuery()) {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery()) {
 
-            System.out.println("📋 All Prescriptions:");
             while (rs.next()) {
                 String id = rs.getString("prescription_id");
                 String customer = rs.getString("customer_name");
                 String medicine = rs.getString("medicine_name");
 
-                System.out.println(id + " - " + customer + " - " + medicine);}}
-        catch (SQLException e) {System.out.println("Error: " + e.getMessage());}}
+                // Assuming Prescription has a constructor like Prescription(String id, String customer, String medicine)
+                prescriptions.add(new Prescription(id, customer, medicine));
+            }
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+        return prescriptions;
+    }
 
     @Override
     public String toString() {return super.toString();}

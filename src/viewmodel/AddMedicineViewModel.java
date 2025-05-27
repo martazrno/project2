@@ -1,54 +1,41 @@
 package viewmodel;
 
-import model.Inventory;
-import interfaces.InventoryManager;
-import model.Medicine;
-import people.Pharmacist;
+import goodclient.RemotePharmacistClient;
 
-import java.time.LocalDate;
+import javafx.beans.property.*;
 
 public class AddMedicineViewModel
 {
-  private String medicineName;
-  private int medicineQuantity;
-  private LocalDate expirationDate;
-  private String medicineId;
-  private boolean isPrescription;
+  private final StringProperty medicineName = new SimpleStringProperty();
+  private final StringProperty medicineQuantity = new SimpleStringProperty();
+  private final BooleanProperty isPrescription = new SimpleBooleanProperty();
 
-  private Pharmacist pharmacist;
+  private final RemotePharmacistClient remoteClient;
 
-  public void setMedicineName(String medicineName)
-  {
-    this.medicineName = medicineName;
+  public AddMedicineViewModel() {
+    this.remoteClient = new RemotePharmacistClient();
   }
 
-  public void setExpirationDate(LocalDate expirationDate)
-  {
-    this.expirationDate = expirationDate;
+  public StringProperty medicineNameProperty() {
+    return medicineName;
   }
 
-  public void setMedicineId(String medicineId)
-  {
-    this.medicineId = medicineId;
+  public StringProperty medicineQuantityProperty() {
+    return medicineQuantity;
   }
 
-  public void setMedicineQuantity(int medicineQuantity)
-  {
-    this.medicineQuantity = medicineQuantity;
+  public BooleanProperty isPrescriptionProperty() {
+    return isPrescription;
   }
 
-  public void setPrescription(boolean isPrescription)
-  {
-    this.isPrescription = isPrescription;
+  public void sendData() {
+    String name = medicineName.get();
+    boolean prescription = isPrescription.get();
+    int parsedQuantity = Integer.parseInt(medicineQuantity.get());
+
+    if (name != null && !name.isBlank() && parsedQuantity >= 0) {
+      remoteClient.addMedicine(name, prescription, parsedQuantity);
+    }
   }
-
-  public void sendData()
-  {
-    InventoryManager inventory = new Inventory();
-    pharmacist = new Pharmacist("pharmacist", inventory);
-
-    pharmacist.addToInventory(new Medicine(medicineName, medicineId, isPrescription, medicineQuantity));
-  }
-
 
 }

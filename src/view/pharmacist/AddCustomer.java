@@ -30,29 +30,14 @@ public class AddCustomer
   public void initialize()
   {
     viewModel = new AddCustomerViewModel();
+
+    enterCustomerName.textProperty().bindBidirectional(
+        viewModel.customerNameProperty());
   }
 
   @FXML
   public void onOkClicked(ActionEvent event)
   {
-    try
-    {
-      String customerName = enterCustomerName.getText();
-      String customerId = enterCustomerID.getText();
-
-      if (customerName.isEmpty() || customerId.isEmpty())
-      {
-        return;
-      }
-
-      viewModel.setCustomerName(customerName);
-      viewModel.setCustomerId(customerId);
-      viewModel.sendData();
-    }
-    catch (NumberFormatException e)
-    {
-    }
-
     viewModel.sendData();
 
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

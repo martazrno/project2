@@ -2,6 +2,7 @@ package goodclient;
 
 import model.Medicine;
 import model.Prescription;
+import people.Customer;
 
 import java.io.*;
 import java.net.Socket;
@@ -88,6 +89,32 @@ public class RemoteDoctorClient
         return list.stream()
             .filter(Medicine.class::isInstance)
             .map(Medicine.class::cast)
+            .toList();
+      } else {
+        System.err.println("Unexpected response type from server: " + response.getClass());
+      }
+    } catch (IOException | ClassNotFoundException e) {
+      System.err.println("Error communicating with server:");
+      e.printStackTrace();
+    }
+    return List.of();
+  }
+
+  public List<Customer> getAllCustomers()
+  {
+    try (
+        Socket socket = new Socket(serverHost, serverPort);
+        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+        ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+    ) {
+      out.writeObject("GET_CUSTOMERS");
+      out.flush();
+      Object response = in.readObject();
+
+      if (response instanceof List<?> list) {
+        return list.stream()
+            .filter(Customer.class::isInstance)
+            .map(Customer.class::cast)
             .toList();
       } else {
         System.err.println("Unexpected response type from server: " + response.getClass());

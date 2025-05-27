@@ -2,6 +2,7 @@ package goodclient;
 
 import model.Medicine;
 import model.Prescription;
+import people.Customer;
 
 import java.io.*;
 import java.net.Socket;
@@ -21,6 +22,54 @@ public class RemotePharmacistClient
   {
     this.serverHost = serverHost;
     this.serverPort = serverPort;
+  }
+
+  public void addCustomer(String name)
+  {
+    try (Socket socket = new Socket(serverHost, serverPort);
+        ObjectOutputStream out = new ObjectOutputStream(
+            socket.getOutputStream());
+        ObjectInputStream in = new ObjectInputStream(socket.getInputStream()))
+    {
+      out.writeObject("ADD_CUSTOMER");
+      out.writeObject(new Customer(name));
+      out.flush();
+
+      Object response = in.readObject();
+      if (response instanceof String message)
+      {
+        System.out.println("Server response: " + message);
+      }
+    }
+    catch (IOException | ClassNotFoundException e)
+    {
+      System.err.println("Failed to add customer:");
+      e.printStackTrace();
+    }
+  }
+
+  public void addMedicine(String name, boolean isPrescription, int quantity)
+  {
+    try (Socket socket = new Socket(serverHost, serverPort);
+        ObjectOutputStream out = new ObjectOutputStream(
+            socket.getOutputStream());
+        ObjectInputStream in = new ObjectInputStream(socket.getInputStream()))
+    {
+      out.writeObject("ADD_MEDICINE");
+      out.writeObject(new Medicine(name, isPrescription, quantity));
+      out.flush();
+
+      Object response = in.readObject(); // Optional: handle a confirmation response
+      if (response instanceof String message)
+      {
+        System.out.println("Server response: " + message);
+      }
+    }
+    catch (IOException | ClassNotFoundException e)
+    {
+      System.err.println("Failed to add medicine:");
+      e.printStackTrace();
+    }
   }
 
   public List<Prescription> getAllPrescriptions()
