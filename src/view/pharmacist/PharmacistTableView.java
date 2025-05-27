@@ -33,6 +33,12 @@ public class PharmacistTableView
   private Button addMedicineButton;
 
   @FXML
+  private VBox customerPane;
+
+  @FXML
+  private VBox medicinePane;
+
+  @FXML
   private TableView<Prescription> pharmacistCustomersTable;
 
   @FXML
@@ -78,18 +84,20 @@ public class PharmacistTableView
   }
 
   @FXML
-  private void showCustomers() {
+  private void showCustomers()
+  {
     showTable(1);
   }
 
   @FXML
-  private void showInventory() {
+  private void showInventory()
+  {
     showTable(2);
   }
 
   private void showTable(int index) {
-    pharmacistCustomersTable.setVisible(index == 1);
-    pharmacistInventoryTable.setVisible(index == 2);
+    customerPane.setVisible(index == 1);
+    medicinePane.setVisible(index == 2);
   }
 
   @FXML

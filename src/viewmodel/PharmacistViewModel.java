@@ -17,13 +17,16 @@ public class PharmacistViewModel
   private final ObservableList<Prescription> prescriptions = FXCollections.observableArrayList();
   private final ObservableList<Medicine> medicine = FXCollections.observableArrayList();
 
-  private final BooleanProperty loading = new SimpleBooleanProperty(false);
+  private final BooleanProperty loadingPrescriptions = new SimpleBooleanProperty(false);
+  private final BooleanProperty loadingMedicine = new SimpleBooleanProperty(false);
 
-  public PharmacistViewModel() {
+  public PharmacistViewModel()
+  {
     this.remotePharmacistClient = new RemotePharmacistClient();
   }
 
-  public ObservableList<Prescription> getPrescriptions() {
+  public ObservableList<Prescription> getPrescriptions()
+  {
     return prescriptions;
   }
 
@@ -32,30 +35,36 @@ public class PharmacistViewModel
     return medicine;
   }
 
-  public ReadOnlyBooleanProperty loadingProperty() {
-    return loading;
+  public ReadOnlyBooleanProperty loadingPrescriptionsProperty()
+  {
+    return loadingPrescriptions;
+  }
+
+  public ReadOnlyBooleanProperty loadingMedicineProperty()
+  {
+    return loadingMedicine;
   }
 
   public void loadPrescriptions()
   {
-    loading.set(true);
+    loadingPrescriptions.set(true);
     new Thread(() -> {
       List<Prescription> data = remotePharmacistClient.getAllPrescriptions();
       javafx.application.Platform.runLater(() -> {
         prescriptions.setAll(data);
-        loading.set(false);
+        loadingPrescriptions.set(false);
       });
     }).start();
   }
 
   public void loadMedicine()
   {
-    loading.set(true);
+    loadingMedicine.set(true);
     new Thread(() -> {
       List<Medicine> data = remotePharmacistClient.getAllMedicine();
       javafx.application.Platform.runLater(() -> {
         medicine.setAll(data);
-        loading.set(false);
+        loadingMedicine.set(false);
       });
     }).start();
   }

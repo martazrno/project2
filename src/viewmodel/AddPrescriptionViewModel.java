@@ -36,11 +36,13 @@ public class AddPrescriptionViewModel
     return medicineList;
   }
 
-  public StringProperty customerNameProperty() {
+  public StringProperty customerNameProperty()
+  {
     return customerName;
   }
 
-  public StringProperty medicineNameProperty() {
+  public StringProperty medicineNameProperty()
+  {
     return medicineName;
   }
 

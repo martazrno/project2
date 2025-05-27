@@ -11,16 +11,19 @@ public class RemoteCustomerClient
   private final String serverHost;
   private final int serverPort;
 
-  public RemoteCustomerClient() {
+  public RemoteCustomerClient()
+  {
     this("localhost", 8080);
   }
 
-  public RemoteCustomerClient(String serverHost, int serverPort) {
+  public RemoteCustomerClient(String serverHost, int serverPort)
+  {
     this.serverHost = serverHost;
     this.serverPort = serverPort;
   }
 
-  public List<Prescription> getAllPrescriptions() {
+  public List<Prescription> getAllPrescriptions()
+  {
     try (
         Socket socket = new Socket(serverHost, serverPort);
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());

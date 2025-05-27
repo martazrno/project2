@@ -64,13 +64,13 @@
          <center>
             <StackPane maxHeight="300.0" maxWidth="400.0" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <VBox fx:id="pharmacistCustomersTable" prefHeight="200.0" prefWidth="100.0">
+                  <VBox fx:id="customerPane" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <TableView prefHeight="260.0">
+                        <TableView fx:id="pharmacistCustomersTable" prefHeight="260.0">
                            <columns>
-                              <TableColumn prefWidth="126.0" text="ID" />
-                              <TableColumn prefWidth="131.0" text="Name" />
-                              <TableColumn prefWidth="142.0" text="Medicine" />
+                              <TableColumn fx:id="idColumn" prefWidth="126.0" text="ID" />
+                              <TableColumn fx:id="customerColumn" prefWidth="131.0" text="Name" />
+                              <TableColumn fx:id="medicineColumn" prefWidth="142.0" text="Medicine" />
                            </columns>
                         </TableView>
                         <HBox alignment="CENTER" prefHeight="60.0" prefWidth="400.0">
@@ -84,12 +84,12 @@
                            </children></HBox>
                      </children>
                   </VBox>
-                  <VBox fx:id="pharmacistInventoryTable" prefHeight="200.0" prefWidth="100.0" visible="false">
+                  <VBox fx:id="medicinePane" prefHeight="200.0" prefWidth="100.0" visible="false">
                      <children>
-                        <TableView prefHeight="260.0" prefWidth="200.0">
+                        <TableView fx:id="pharmacistInventoryTable" prefHeight="260.0" prefWidth="200.0">
                           <columns>
-                            <TableColumn prefWidth="200.0" text="Medicine" />
-                            <TableColumn prefWidth="199.0" text="Amount" />
+                            <TableColumn fx:id="medicineNameColumn" prefWidth="200.0" text="Medicine" />
+                            <TableColumn fx:id="medicineAmountColumn" prefWidth="199.0" text="Amount" />
                           </columns>
                         </TableView>
                         <HBox alignment="CENTER" prefHeight="60.0" prefWidth="400.0">

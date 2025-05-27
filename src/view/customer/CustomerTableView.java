@@ -42,7 +42,8 @@ public class CustomerTableView
     loadTestData();
   }
 
-  private void loadTestData() {
+  private void loadTestData()
+  {
     ObservableList<Prescription> testData = FXCollections.observableArrayList(
         new Prescription("1", "Alice Johnson", "Ibuprofen"),
         new Prescription("2", "Bob Smith", "Paracetamol"),

@@ -17,19 +17,23 @@ public class CustomerViewModel
   private final ObservableList<Prescription> prescriptions = FXCollections.observableArrayList();
   private final BooleanProperty loading = new SimpleBooleanProperty(false);
 
-  public CustomerViewModel() {
+  public CustomerViewModel()
+  {
     this.remoteCustomerClient = new RemoteCustomerClient();
   }
 
-  public ObservableList<Prescription> getPrescriptions() {
+  public ObservableList<Prescription> getPrescriptions()
+  {
     return prescriptions;
   }
 
-  public ReadOnlyBooleanProperty loadingProperty() {
+  public ReadOnlyBooleanProperty loadingProperty()
+  {
     return loading;
   }
 
-  public void loadPrescriptions() {
+  public void loadPrescriptions()
+  {
     loading.set(true);
     new Thread(() -> {
       List<Prescription> data = remoteCustomerClient.getAllPrescriptions();

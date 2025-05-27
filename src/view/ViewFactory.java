@@ -23,7 +23,8 @@ public class ViewFactory {
     this.stage = stage;
   }
 
-  public void showView(ViewType viewType) {
+  public void showView(ViewType viewType)
+  {
     String fxmlPath = switch (viewType) {
       case LOGIN -> "MainView.fxml";
       case DOCTOR -> "doctor/DoctorTableView.fxml";

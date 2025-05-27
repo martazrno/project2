@@ -26,7 +26,8 @@ public class MainView
   }
 
     @FXML
-    private void handleLogin() {
+    private void handleLogin()
+    {
       String role = usernameTextField.getText().trim().toLowerCase();
 
       switch (role) {

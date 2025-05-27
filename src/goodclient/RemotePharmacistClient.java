@@ -12,16 +12,19 @@ public class RemotePharmacistClient
   private final String serverHost;
   private final int serverPort;
 
-  public RemotePharmacistClient() {
+  public RemotePharmacistClient()
+  {
     this("localhost", 8080);
   }
 
-  public RemotePharmacistClient(String serverHost, int serverPort) {
+  public RemotePharmacistClient(String serverHost, int serverPort)
+  {
     this.serverHost = serverHost;
     this.serverPort = serverPort;
   }
 
-  public List<Prescription> getAllPrescriptions() {
+  public List<Prescription> getAllPrescriptions()
+  {
     try (
         Socket socket = new Socket(serverHost, serverPort);
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
