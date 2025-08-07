@@ -7,9 +7,12 @@ import java.sql.*;
 
 public class Customer extends User implements Serializable
 {
-
+    private static final long serialVersionUID = -4537788144857287537L;
     // constructor
+    public Customer(){super();}
+
     public Customer (String name){super(name);}
+
 
     // methods
     public void viewMyPrescriptions() {

@@ -37,7 +37,6 @@
                   <Insets bottom="10.0" />
                </VBox.margin>
             </TextField>
-            <CheckBox fx:id="isPrescriptionCheckBox" mnemonicParsing="false" text="Prescription" />
          </children>
       </VBox>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
@@ -47,9 +46,11 @@
                   <Insets bottom="10.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="medicineIdTextField" alignment="CENTER" maxWidth="190.0" promptText="Enter Medicine ID" />
          </children>
       </VBox>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" />
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
+         <children>
+            <CheckBox fx:id="isPrescriptionCheckBox" mnemonicParsing="false" text="Prescription" />
+         </children></HBox>
    </children>
 </GridPane>

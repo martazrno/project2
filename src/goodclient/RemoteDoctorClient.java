@@ -28,8 +28,9 @@ public class RemoteDoctorClient
   {
     try (
         Socket socket = new Socket(serverHost, serverPort);
-        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
     ) {
       out.writeObject("CREATE_PRESCRIPTION");
       out.flush();
@@ -52,8 +53,9 @@ public class RemoteDoctorClient
   {
     try (
         Socket socket = new Socket(serverHost, serverPort);
-        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
     ) {
       out.writeObject("GET_PRESCRIPTIONS");
       out.flush();
@@ -78,8 +80,9 @@ public class RemoteDoctorClient
   {
     try (
         Socket socket = new Socket(serverHost, serverPort);
-        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
     ) {
       out.writeObject("GET_MEDICINE");
       out.flush();
@@ -104,8 +107,9 @@ public class RemoteDoctorClient
   {
     try (
         Socket socket = new Socket(serverHost, serverPort);
-        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
     ) {
       out.writeObject("GET_CUSTOMERS");
       out.flush();

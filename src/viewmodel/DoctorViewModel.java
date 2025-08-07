@@ -1,5 +1,6 @@
 package viewmodel;
 
+import goodclient.RemotePharmacistClient;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,6 +22,11 @@ public class DoctorViewModel
   public ObservableList<Prescription> getPrescriptions()
   {
     return prescriptions;
+  }
+
+  public RemoteDoctorClient getClient()
+  {
+    return remoteDoctorClient;
   }
 
   public ReadOnlyBooleanProperty loadingProperty() {

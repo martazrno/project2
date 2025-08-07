@@ -49,7 +49,7 @@ public class DoctorTableView
     medicineColumn.setCellValueFactory(cellData -> cellData.getValue().getMedicineName());
 
     viewModel.loadPrescriptions();
-    loadTestData();
+
   }
 
   private void loadTestData()

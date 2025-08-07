@@ -6,6 +6,7 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import people.Customer;
+import model.Medicine;
 import people.Doctor;
 
 public class AddPrescriptionViewModel
@@ -22,8 +23,8 @@ public class AddPrescriptionViewModel
   {
     remoteClient = new RemoteDoctorClient();
 
-    customerList.setAll("Alice", "Bob", "Charlie");
-    medicineList.setAll("Paracetamol", "Ibuprofen", "Amoxicillin");
+    customerList.setAll(remoteClient.getAllCustomers().stream().map(Customer::getName).toList());
+    medicineList.setAll(remoteClient.getAllMedicine().stream().map(Medicine::getName).toList());
   }
 
   public ObservableList<String> getCustomerList()
