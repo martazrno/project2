@@ -36,6 +36,9 @@ public class DoctorTableView
   @FXML
   private Button doctorAddPrescriptionButton;
 
+  @FXML
+  private Button refreshButton;
+
   private DoctorViewModel viewModel;
 
   public void initialize()
@@ -50,6 +53,17 @@ public class DoctorTableView
 
     viewModel.loadPrescriptions();
 
+  }
+
+  public void refresh()
+  {
+    adminPrescriptionsTable.setItems(viewModel.getPrescriptions());
+
+    idColumn.setCellValueFactory(cellData -> cellData.getValue().getId());
+    customerColumn.setCellValueFactory(cellData -> cellData.getValue().getCustomerName());
+    medicineColumn.setCellValueFactory(cellData -> cellData.getValue().getMedicineName());
+
+    viewModel.loadPrescriptions();
   }
 
   private void loadTestData()

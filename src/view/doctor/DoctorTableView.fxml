@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
@@ -50,13 +51,18 @@
                     </children>
                 </StackPane>
             </center>
-            <bottom>
-                <Button fx:id="doctorAddPrescriptionButton" mnemonicParsing="false" onAction="#handleOpenForm" prefHeight="25.0" prefWidth="122.0" text="Add Prescription" textAlignment="CENTER" BorderPane.alignment="CENTER">
-                    <BorderPane.margin>
-                        <Insets bottom="15.0" />
-                    </BorderPane.margin>
-                </Button>
-            </bottom>
+         <bottom>
+            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="doctorAddPrescriptionButton" mnemonicParsing="false" onAction="#handleOpenForm" prefHeight="25.0" prefWidth="122.0" text="Add Prescription" textAlignment="CENTER" />
+                  <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#refresh" text="Refresh">
+                     <HBox.margin>
+                        <Insets left="30.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </bottom>
         </BorderPane>
     </children>
 </AnchorPane>

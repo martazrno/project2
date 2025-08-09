@@ -3,15 +3,21 @@ import database.DBconnect;
 
 import java.io.Serializable;
 import java.sql.*;
+import java.util.UUID;
 
-
-public class Customer extends User implements Serializable
+public class Customer implements Serializable
 {
     private static final long serialVersionUID = -4537788144857287537L;
-    // constructor
-    public Customer(){super();}
+    private String name;
+    private String id;
 
-    public Customer (String name){super(name);}
+    // constructor
+    public Customer(){}
+
+    public Customer (String name){
+        this.name = name;
+        this.id = generateId();
+    }
 
 
     // methods
@@ -39,4 +45,10 @@ public class Customer extends User implements Serializable
             System.out.println("Error fetching prescriptions: " + e.getMessage());
         }
     }
+
+    private String generateId() {return "U" + UUID.randomUUID().toString().substring(0, 4).toUpperCase();}
+
+    //getters
+    public String getId() {return id;}
+    public String getName() {return name;}
 }

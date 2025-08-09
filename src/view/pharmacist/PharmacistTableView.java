@@ -59,6 +59,12 @@ public class PharmacistTableView
   @FXML
   private TableColumn<Medicine, Number> medicineAmountColumn;
 
+  @FXML
+  private Button refreshButton1;
+
+  @FXML
+  private Button refreshButton2;
+
   private PharmacistViewModel viewModel;
 
   @FXML
@@ -134,5 +140,22 @@ public class PharmacistTableView
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+  public void refresh()
+  {
+    pharmacistCustomersTable.setItems(viewModel.getPrescriptions());
+
+    idColumn.setCellValueFactory(cellData -> cellData.getValue().getId());
+    customerColumn.setCellValueFactory(cellData -> cellData.getValue().getCustomerName());
+    medicineColumn.setCellValueFactory(cellData -> cellData.getValue().getMedicineName());
+
+    viewModel.loadPrescriptions();
+
+    pharmacistInventoryTable.setItems(viewModel.getMedicine());
+    medicineNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
+    medicineAmountColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getQuantity()));
+
+    viewModel.loadMedicine();
   }
 }

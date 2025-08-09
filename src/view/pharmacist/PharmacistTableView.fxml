@@ -74,7 +74,7 @@
                                     <Insets right="30.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" text="Remove Customer" />
+                              <Button fx:id="refreshButton1" mnemonicParsing="false" onAction="#refresh" text="Refresh" />
                            </children></HBox>
                      </children>
                   </VBox>
@@ -93,7 +93,7 @@
                                     <Insets right="30.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button alignment="CENTER" mnemonicParsing="false" text="Remove Medicine" />
+                              <Button fx:id="refreshButton2" alignment="CENTER" mnemonicParsing="false" onAction="#refresh" text="Refresh" />
                            </children></HBox>
                      </children>
                   </VBox>
